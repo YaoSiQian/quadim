@@ -16,11 +16,15 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+    - name: Clone src-dst-clarifier
+      run: git clone https://github.com/eternal-io/src-dst-clarifier.git
     - name: Install Rust
       uses: actions-rs/toolchain@v1
       with:
         profile: minimal
         toolchain: ${{ matrix.rust-version }}
+    - name: Add src-dst-clarifier as a dependency
+      run: cargo add --path ./src-dst-clarifier
     - name: Build
       run: cargo build --release
     - name: Test
